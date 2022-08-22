@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+        {{product.description|truncatewords:155}}
+{% endblock %}
+
+{% block title %}
+        {{product.name}} -- Market.com--
+{% endblock %}
+
+
+{% block content %}
+<div class="row my_prod_row_class">
+    <div class="max_auto">
+        <p><a href="{% url 'CartApp:allprodcat' %}">Home</a> | <a href="{{product.category.get_url}}">{{product.name}}</a> | {{product.name}}</p>
+    </div>
+</div>
+<div class="container">
+<br>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center ">
+        <div style="min-width:18 rem">
+            <img src="{{product.image.url}}" alt="{{product.name}}" width="150px" height="150px">
+        </div>
+    </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div>
+            <h1 class="my_prod_title">{{product.name}}</h1>
+            <p class="text-justify">${{product.price}}</p>
+            <p> Product Description</p>
+            <p>{{product.description}}</p>
+            {% if product.stock <= 0 %}
+            <p><b> Out of Stock</b></p>
+            {% else %}
+            <p><a class="btn btn-secondary" href="{% url 'Cart:add_cart' product.id %}">Add to Cart</a> </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
